@@ -29,7 +29,7 @@ def optimal_res(matrix, step, per1, per2, years):
                 if(val==f[i]):
                     g[i,j-1] = inc*opt_step+g[i,j-1]
                     opt_step = opt_step*c
-                if(val>f[i]):
+                elif(val>f[i]):
                     f[i] = val
                     g[i,j-1] = inc
                     opt_step = c
@@ -40,3 +40,22 @@ def optimal_res(matrix, step, per1, per2, years):
     print(s, "\n")
     print("\n-----------state matrix------------\n")
     print(g, "\n")
+    print("\n-----optimal options to invest-----\n")
+    opt_func(0, rows - 1, [], np.fliplr(g), c, step, years, per1, per2)
+    print("\n-----------------------------------")
+
+def opt_func(n, inext, invest, g, c, step, columns, per1, per2):
+    rem = inext*step
+    for i in range(n, columns):
+        imax = g[inext,i]
+        while(int(imax/c)!=0):
+            r = int(imax%c)
+            i_next = int(inext - r)
+            imax = int(imax/c)
+            opt_func(i+1, i_next, invest+[step*r], g, c, step, columns)
+        a = step*imax
+        b = rem-a
+        rem = a*per1 + b*per2
+        invest.append((a, b))
+        inext = int(rem/step)
+    print(invest)
