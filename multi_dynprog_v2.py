@@ -57,7 +57,7 @@ def optimal_res(matrix, step, x, y):
                     if(val_y==f_y[j]):
                         cond_y[k-1][i,j] = inc*opt_step_y + cond_y[k-1][i,j]
                         opt_step_y=opt_step_y*c
-                    if(val_y>f_y[j]):
+                    elif(val_y>f_y[j]):
                         f_y[j] = val_y
                         cond_y[k-1][i,j] = inc
                         opt_step_y = c
@@ -66,8 +66,8 @@ def optimal_res(matrix, step, x, y):
                     val_x = matrix[inc,k] + f[dec_x,j]
                     if(val_x == f_x[j]):
                         cond_x[k-1][i,j] = inc*opt_step_x + cond_x[k-1][i,j]
-                        opt_step_x=opt_step_x*c
-                    if(val_x>f_x[j]):
+                        opt_step_x = opt_step_x*c
+                    elif(val_x>f_x[j]):
                         f_x[j] = val_x
                         cond_x[k-1][i,j] = inc
                         opt_step_x = c
